@@ -47,7 +47,8 @@ All tables, ablations and significance tests are in `notebooks/01_reproduce_resu
 
 ### Limitations
 
-- **Model selection used the held-out split.** About 70 design variants were compared on the same 360 images that
+- **Model selection used the held-out split.** 33 MAE pretraining configurations (74 runs in total, including
+  repeated seeds and the baseline), each with three to five readouts, were compared on the same 360 images that
   produce the reported numbers, with no separate development split, so the numbers are somewhat optimistic.
 - **The baseline received less tuning** than the MAE (a learning-rate sweep, 800 epochs vs 1,600).
 - **SimCLR is better in the fully inductive setting.** The 1-layer-decoder MAE variant closes that gap (95.3 ± 0.3)
