@@ -95,7 +95,9 @@ pytest -q                              # optional: 3 fast tests
 
 A CUDA GPU is needed for training. Evaluation and the notebooks also run on CPU, slowly.
 `requirements.txt` lists the direct dependencies only, if you prefer to resolve versions yourself. The cloud runs
-behind the stored results used PyTorch 2.4.0 on Python 3.11; the notebooks were executed with `requirements-lock.txt`.
+behind the stored results used PyTorch 2.4.0 on Python 3.11. The saved notebook outputs were produced with
+PyTorch 2.9.1; the evaluation of the released weights was re-checked with `requirements-lock.txt` (PyTorch 2.4.0)
+and gives the same accuracy (98.33%).
 
 ### 2. Data
 
