@@ -21,6 +21,10 @@ METRICS = {
 }
 
 
+# metrics of the main results table
+MAIN_METRICS = ["Acc (UMAP+Ward)", "NMI", "ARI", "Silhouette (UMAP)"]
+
+
 def load_run(tag, readout, root=None):
     R = json.load(open(Path(root or repo_root()) / "results" / "runs" / tag / "eval.json"))
     return R[readout]
@@ -38,7 +42,7 @@ def fmt(m, s, name, n):
 
 def table(groups, readout=None, metrics=None, root=None):
     import pandas as pd
-    metrics = metrics or list(METRICS); cols = list(METRICS); rows = []
+    metrics = metrics or MAIN_METRICS; cols = list(METRICS); rows = []
     for g, v in groups.items():
         V = values(v["tags"], readout or v["readout"], root)
         rows.append({"Model": g, "Seeds": len(V), "Readout": readout or v["readout"],

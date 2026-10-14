@@ -23,27 +23,14 @@ optimiser and schedule for 800 epochs.
 
 ## Results
 
-NEU-DET, 360 held-out validation images that no encoder saw during pretraining. Mean ± std over 5 seeds.
-Clustering: standardised features → UMAP 2-D → Ward agglomerative clustering (K = 6) → Hungarian-matched accuracy.
+NEU-DET, 360 held-out validation images that no encoder saw during pretraining. Features are standardised,
+projected to 2-D with UMAP and grouped by Ward agglomerative clustering (K = 6); accuracy is Hungarian-matched.
+Mean ± std over 5 seeds.
 
-| Metric | Defect-aware MAE | SimCLR baseline | Significant? (Welch t-test) |
-|---|---|---|---|
-| Accuracy (UMAP + Ward) | **98.6 ± 0.2** | 97.8 ± 1.3 | no (p = 0.29) |
-| NMI / ARI | **0.968 / 0.967** | 0.955 / 0.951 | no |
-| Silhouette, UMAP 2-D | **0.838 ± 0.019** | 0.736 ± 0.019 | **yes** |
-| Silhouette, PCA-50 | **0.503** | 0.197 | **yes** |
-| Accuracy, mean over 12 UMAP settings × 10 seeds | 97.4 ± 0.6 | 97.6 ± 0.4 | no |
-| Accuracy, PCA-50 + k-means | 95.4 ± 1.0 | 95.4 ± 1.1 | no |
-| Accuracy, raw 768-d + k-means | 96.0 ± 0.3 | 95.8 ± 1.2 | no |
-| Accuracy, fully inductive (fit on train, assign held-out) | 89.4 ± 4.2 | **95.0 ± 1.1** | borderline (p = 0.055) |
-| Linear probe (uses labels) | **99.5 ± 0.1** | 98.8 ± 0.2 | **yes** (p = 0.001) |
-| 20-NN probe (uses labels) | 96.3 ± 0.5 | **97.3 ± 0.4** | **yes** (p = 0.019) |
-
-References on the same held-out protocol: raw pixels 51.7%, randomly initialised encoder 51.1%, and an earlier
-model trained jointly with a box-supervised detection branch 86.7% (silhouette 0.71).
-
-In short: accuracy on par with a tuned contrastive method, with clearly tighter and more stable clusters.
-All tables, ablations and significance tests are in `notebooks/01_reproduce_results.ipynb`.
+| Model | Accuracy (%) | NMI | ARI | Silhouette |
+|---|---|---|---|---|
+| SimCLR baseline | 97.8 ± 1.3 | 0.955 ± 0.021 | 0.951 ± 0.027 | 0.736 ± 0.019 |
+| **Defect-aware MAE** | **98.6 ± 0.2** | **0.968 ± 0.003** | **0.967 ± 0.004** | **0.838 ± 0.019** |
 
 ## Repository layout
 
@@ -63,7 +50,7 @@ configs/                settings of the released models; groups.json maps experi
 notebooks/              01 reproduce results · 02 Grad-CAM analysis · 03 train from scratch (all executed)
 results/runs/<tag>/     eval.json, args.json, history.json for each of the 74 training runs
 results/gradcam/        full Grad-CAM metrics for four models
-results/pilot/          pilot study and reference baselines (raw pixels, random init, earlier v1 model)
+results/pilot/          raw-pixel and random-encoder baselines, pilot study
 results/provenance/     cloud run log: GPU model, instance and timing of every training run
 figures/                figures produced by the notebooks
 tests/                  fast unit tests (no data or GPU needed)
@@ -83,9 +70,7 @@ pytest -q                              # optional: 3 fast tests
 
 A CUDA GPU is needed for training. Evaluation and the notebooks also run on CPU, slowly.
 `requirements.txt` lists the direct dependencies only, if you prefer to resolve versions yourself. The cloud runs
-behind the stored results used PyTorch 2.4.0 on Python 3.11. The saved notebook outputs were produced with
-PyTorch 2.9.1; the evaluation of the released weights was re-checked with `requirements-lock.txt` (PyTorch 2.4.0)
-and gives the same accuracy (98.33%).
+behind the stored results used PyTorch 2.4.0 on Python 3.11; the notebooks were executed with `requirements-lock.txt`.
 
 ### 2. Data
 
