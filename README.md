@@ -139,3 +139,6 @@ covered by this license:
 
 > K. Song and Y. Yan, "A noise robust method based on completed local binary patterns for hot-rolled steel strip
 > surface defects," *Applied Surface Science*, vol. 285, pp. 858–864, 2013.
+
+> X. Lv, F. Duan, J. Jiang, X. Fu, and L. Gan, "Deep metallic surface defect detection: The new benchmark and
+> detection network," *Sensors*, vol. 20, no. 6, p. 1562, 2020.
