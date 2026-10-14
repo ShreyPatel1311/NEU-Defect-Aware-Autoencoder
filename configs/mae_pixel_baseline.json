@@ -1,0 +1,12 @@
+{
+ "method": "mae",
+ "target": "pix",
+ "masking": "random",
+ "mask": 0.75,
+ "strong": 0,
+ "dec_depth": 4,
+ "epochs": 800,
+ "bs": 64,
+ "lr": 0.00015,
+ "wd": 0.05
+}

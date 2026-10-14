@@ -1,0 +1,11 @@
+# versions used to produce the released results (Python 3.11, CUDA 12.4)
+torch==2.4.0
+numpy
+scipy
+scikit-learn
+umap-learn
+opencv-python-headless==4.13.0.92
+grad-cam
+matplotlib
+huggingface_hub
+pandas

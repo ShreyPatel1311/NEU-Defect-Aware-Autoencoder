@@ -1,0 +1,17 @@
+{
+ "method": "mae",
+ "target": "teacher",
+ "masking": "random",
+ "beta": 1.0,
+ "epochs": 800,
+ "bs": 64,
+ "lr": 0.0005,
+ "wd": 0.05,
+ "mask": 0.75,
+ "strong": 0,
+ "ema": 0.996,
+ "seed": 0,
+ "tag": "r1_mae_teacher",
+ "n": 0,
+ "dec_depth": 4
+}

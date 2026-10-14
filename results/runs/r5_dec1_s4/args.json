@@ -1,0 +1,17 @@
+{
+ "method": "mae",
+ "target": "hog",
+ "masking": "energy",
+ "beta": 1.0,
+ "epochs": 800,
+ "bs": 64,
+ "lr": 0.00015,
+ "wd": 0.05,
+ "mask": 0.75,
+ "strong": 1,
+ "ema": 0.996,
+ "dec_depth": 1,
+ "seed": 4,
+ "tag": "r5_dec1_s4",
+ "n": 0
+}

@@ -1,0 +1,11 @@
+__pycache__/
+*.egg-info/
+.ipynb_checkpoints/
+.venv/
+data/NEU-DET/
+data/cache/
+data/*.zip
+/weights/
+/runs/
+results/gradcam/*.npy
+*.pth

@@ -1,0 +1,16 @@
+{
+ "method": "simclr",
+ "target": "pix",
+ "masking": "random",
+ "beta": 1.0,
+ "epochs": 800,
+ "bs": 64,
+ "lr": 0.00015,
+ "wd": 0.05,
+ "mask": 0.75,
+ "strong": 0,
+ "ema": 0.996,
+ "seed": 1,
+ "tag": "r3_simclr_lr1.5e-4_s1",
+ "n": 0
+}
