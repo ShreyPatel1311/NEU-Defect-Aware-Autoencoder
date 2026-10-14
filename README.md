@@ -2,7 +2,6 @@
 
 Label-free representation learning for steel-surface defect clustering. A Vision Transformer encoder is pretrained
 with a masked autoencoder adapted to texture defects, and its frozen features are clustered into defect categories.
-Pretraining uses **no class labels, no bounding boxes and no contrastive loss**.
 
 Released weights: <https://huggingface.co/Godseye1311/defect-aware-MAE>
 
@@ -66,15 +65,12 @@ pip install -e .
 pytest -q                              # optional: 3 fast tests
 ```
 
-A CUDA GPU is needed for training. Evaluation and the notebooks also run on CPU, slowly.
-`requirements.txt` lists the direct dependencies only, if you prefer to resolve versions yourself. The cloud runs
+`requirements.txt` lists the direct dependencies only. The cloud runs
 behind the stored results used PyTorch 2.4.0 on Python 3.11; the notebooks were executed with `requirements-lock.txt`.
 
 ### 2. Data
 
-NEU-DET (Song & Yan, Northeastern University; 1,800 images, 6 classes) is not redistributed here. Download the
-NEU-DET archive that contains `NEU-DET/train` and `NEU-DET/validation` (for example the "NEU-DET" surface-defect
-dataset on Kaggle), then:
+Download the NEU-DET archive that contains `NEU-DET/train` and `NEU-DET/validation`, then:
 
 ```bash
 python scripts/prepare_data.py --archive /path/to/archive.zip
