@@ -76,6 +76,7 @@ notebooks/              01 reproduce results · 02 Grad-CAM analysis · 03 train
 results/runs/<tag>/     eval.json, args.json, history.json for each of the 74 training runs
 results/gradcam/        full Grad-CAM metrics for four models
 results/pilot/          pilot study and reference baselines (raw pixels, random init, earlier v1 model)
+results/provenance/     cloud run log: GPU model, instance and timing of every training run
 figures/                figures produced by the notebooks
 tests/                  fast unit tests (no data or GPU needed)
 ```
@@ -87,12 +88,14 @@ tests/                  fast unit tests (no data or GPU needed)
 ```bash
 git clone <this repository> && cd defect-aware-MAE
 python -m venv .venv && source .venv/bin/activate
-pip install -r requirements.txt        # pinned versions used for the released results
+pip install -r requirements-lock.txt   # exact versions of every package (Python 3.12, CUDA 12.1 wheels)
 pip install -e .
 pytest -q                              # optional: 3 fast tests
 ```
 
 A CUDA GPU is needed for training. Evaluation and the notebooks also run on CPU, slowly.
+`requirements.txt` lists the direct dependencies only, if you prefer to resolve versions yourself. The cloud runs
+behind the stored results used PyTorch 2.4.0 on Python 3.11; the notebooks were executed with `requirements-lock.txt`.
 
 ### 2. Data
 
