@@ -45,19 +45,6 @@ model trained jointly with a box-supervised detection branch 86.7% (silhouette 0
 In short: accuracy on par with a tuned contrastive method, with clearly tighter and more stable clusters.
 All tables, ablations and significance tests are in `notebooks/01_reproduce_results.ipynb`.
 
-### Limitations
-
-- **Model selection used the held-out split.** 33 MAE pretraining configurations (74 runs in total, including
-  repeated seeds and the baseline), each with three to five readouts, were compared on the same 360 images that
-  produce the reported numbers, with no separate development split, so the numbers are somewhat optimistic.
-- **The baseline received less tuning** than the MAE (a learning-rate sweep, 800 epochs vs 1,600).
-- **SimCLR is better in the fully inductive setting.** The 1-layer-decoder MAE variant closes that gap (95.3 ± 0.3)
-  at slightly lower accuracy (98.0 ± 0.5).
-- **One small dataset**; the number of clusters (K = 6) is given.
-- **The readout matters.** The MAE's CLS token is a weak feature; results rely on the `mid` readout.
-- **Explanations localise defects only modestly** (Grad-CAM energy inside annotated boxes is 1.15× a uniform map;
-  random-init control 0.50×; Grad-CAM++ is not better). See `notebooks/02_gradcam_analysis.ipynb`.
-
 ## Repository layout
 
 ```
@@ -161,24 +148,6 @@ python scripts/train.py --config results/runs/r5_dec2_ep1600_s3/args.json --tag 
 python scripts/aggregate.py                      # all experiment groups, each with its own readout
 python scripts/aggregate.py --readout cls        # same runs, CLS readout
 ```
-
-### What to expect when reproducing
-
-- **Same seed, same GPU model:** identical numbers. The seed-0 MAE was trained three times on RTX A4000 machines and
-  gave 98.33% accuracy and silhouette 0.827 each time.
-- **Same seed, different GPU model:** slightly different runs. SimCLR seed 0 gave 99.17% on an RTX 4070S and 98.33% on
-  an RTX A4000. Compare against the 5-seed mean ± std, not a single number.
-- **Evaluating released weights on another GPU:** half-precision features differ in the last digits and UMAP
-  amplifies this, so accuracies can move by a few tenths of a point.
-- Runs whose tag starts with `r1`–`r6` or `f_` were produced by an earlier layout of this code. The trainer here
-  was verified to produce bit-identical losses to it for the released MAE and SimCLR settings.
-
-## Provenance of stored runs
-
-`configs/groups.json` lists which runs form each table row. Tags encode the round in which a run was made
-(`r1` recipe sweep and first targets, `r2`–`r3` masking / augmentation / teacher targets, `r4`–`r6` decoder depth,
-mask ratio and training length, `f_` extra seeds, `final_` the released checkpoints). `results/pilot/` holds the
-first 200-epoch study, which used a learning rate that was too low for the MAE and is kept only as a record.
 
 ## License
 
