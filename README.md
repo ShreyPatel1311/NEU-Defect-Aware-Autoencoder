@@ -46,12 +46,10 @@ src/defect_aware_mae/   installable package
   report.py             seed aggregation, tables, significance tests
   hub.py                download of released weights
 scripts/                prepare_data.py, train.py, evaluate.py, gradcam.py, aggregate.py
-configs/                settings of the released models; groups.json maps experiments to stored runs
+configs/                settings of the released models; groups.json lists the stored runs of each model
 notebooks/              01 reproduce results · 02 Grad-CAM analysis · 03 train from scratch (all executed)
-results/runs/<tag>/     eval.json, args.json, history.json for each of the 74 training runs
+results/runs/<tag>/     eval.json, args.json, history.json of each run (5 seeds per model + released checkpoints)
 results/gradcam/        full Grad-CAM metrics for four models
-results/pilot/          raw-pixel and random-encoder baselines, pilot study
-results/provenance/     cloud run log: GPU model, instance and timing of every training run
 figures/                figures produced by the notebooks
 tests/                  fast unit tests (no data or GPU needed)
 ```
@@ -130,7 +128,7 @@ python scripts/train.py --config results/runs/r5_dec2_ep1600_s3/args.json --tag 
 ### 5. Rebuild the tables
 
 ```bash
-python scripts/aggregate.py                      # all experiment groups, each with its own readout
+python scripts/aggregate.py                      # results table, each model with its own readout
 python scripts/aggregate.py --readout cls        # same runs, CLS readout
 ```
 
